@@ -24,7 +24,7 @@ def summary(text: str) -> str:
     Генерирует краткое содержание текста
     """
     giga = GigaChat(
-        credentials="MDNiZWNiMmMtZWE5MS00MDY3LTlkYTAtNmQ5MjE0NmI3M2ViOjg5YTMxZjk1LTY1ZjYtNGE2YS1iYzZkLWRkMTlhYzFhMWQ1Mw==",
+        credentials=KEY,
         verify_ssl_certs=False,
     )
     # messages = [
@@ -82,9 +82,8 @@ def gen_photo(query: str, path: str = "") -> str:
     if path == "":
         path = "last_giga_image.png"
     giga = GigaChat(
-        credentials="MDNiZWNiMmMtZWE5MS00MDY3LTlkYTAtNmQ5MjE0NmI3M2ViOjg5YTMxZjk1LTY1ZjYtNGE2YS1iYzZkLWRkMTlhYzFhMWQ1Mw==",
+        credentials=KEY,
         verify_ssl_certs=False)
-    # print(giga.chat("Привет"))
 
     system_prompt = """Ты профессиональный генератор изображений. Твоя задача - 
         1. Анализировать полученное описание\n
@@ -110,9 +109,9 @@ def gen_photo(query: str, path: str = "") -> str:
         raise ConnectError("что-т не работает")
     except Exception as e:
         print(f"Неизвестная ошибка: {e}")
-    print(img)
+    #print(img)
     content = img.choices[0].message.content
-    print(content)
+    #print(content)
     # print(giga.get_image(content))
     file_id = re.search(r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}', content)
     print(file_id)
@@ -120,14 +119,13 @@ def gen_photo(query: str, path: str = "") -> str:
     if file_id is None:
         raise NotPhoto
     image_data = giga.get_image(file_id.group(0))
-    # Сохранение или обработка изображения
     with open(path, "wb") as f:
         f.write(base64.b64decode(image_data.content))
 
 
 def get_help(query: str) -> str:
     giga = GigaChat(
-        credentials="MDNiZWNiMmMtZWE5MS00MDY3LTlkYTAtNmQ5MjE0NmI3M2ViOjg5YTMxZjk1LTY1ZjYtNGE2YS1iYzZkLWRkMTlhYzFhMWQ1Mw==",
+        credentials=KEY,
         verify_ssl_certs=False,
     )
 

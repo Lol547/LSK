@@ -27,7 +27,7 @@ def synchro() -> bool:
     # to_close = []
     db = sqlite3.connect("mainbase.db")
     # with sqlite3.connect() as db:
-    print("mainbase.py открыта synchro()")
+    print("mainbase.db открыта synchro()")
     cursor = db.cursor()
     cursor.execute("SELECT id_user, latest FROM user;")
     id_user, f_user = cursor.fetchone()
